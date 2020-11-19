@@ -1,0 +1,9 @@
+.con {
+    margin-left: 30px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+.con label input {
+    margin-right: 10px;
+}

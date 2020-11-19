@@ -20,3 +20,22 @@ body {
   font-family: 'Hind Madurai', sans-serif;
   align-items: center;
 }
+
+input[type="checkbox"]{
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #000000;
+  border-radius: 1px;
+  width: 25px;
+  height: 25px;
+  border-width: 0;
+  transition: all .2s linear;
+  }
+  input[type="checkbox"]:checked{
+    background-color: #0061F2;
+  }
+  input[type="checkbox"]:focus{
+    outline: 0 none;
+    box-shadow: none;
+  }

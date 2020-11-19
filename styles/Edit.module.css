@@ -17,7 +17,7 @@
 }
 .tools {
     width: 30%;
-    min-width: 350px;
+    min-width: 400px;
 }
 .toolsBar {
     height: 56px;
@@ -29,4 +29,76 @@
 }
 .toolsBar img {
     width: 32px;
+}
+.popup {
+    position: absolute; 
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #ffffff;
+    width: 300px;
+    height: 180px;
+    border-radius: 5px;
+}
+.icon {
+    position: absolute; 
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.pop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.pop img {
+    margin-right: 10px;
+}
+.popup input {
+    width: 4rem;
+    height: 2rem;
+    border: 2px #E5E5E5 solid; 
+    border-radius: 3px;
+    outline: none;
+    padding: 10px;
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield;
+}
+
+.nums {
+    display: flex;
+    justify-content: space-around;
+}
+.saveBut {
+    margin: 0;
+    position: absolute;
+    bottom: 0;  
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #0061F2;
+    border-radius: 5px;
+    border: 0px white solid;
+    outline: none;
+    width: 10rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.saveBut img {
+    width: 25%;
+}
+.adjustments h1 {
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.save {
+    position: fixed;
+    width:30%;
+    bottom:0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }

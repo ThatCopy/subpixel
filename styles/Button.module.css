@@ -1,0 +1,14 @@
+.b {
+    background-color: #0061F2;
+    border-radius: 5px;
+    border: 0px white solid;
+    outline: none;
+    width: 6rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.b img {
+    width: 35px;
+}
