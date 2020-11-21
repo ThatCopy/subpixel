@@ -5,7 +5,6 @@ import styles from "../styles/Edit.module.css"
 import Jimp from 'jimp/es';
 import Silder from "../components/Slider";
 import Check from "../components/Check";
-import Button from "../components/Button";
 import { saveAs } from 'file-saver';
 import b64toBlob from "../utils/b64toBlob";
 
@@ -24,6 +23,8 @@ export default function Edit() {
   const [err, setErr] = useState("")
   const [x, setX] = useState('')
   const [y, setY] = useState('')
+  const [defImg, setDefImg] = useState()
+  var [adj, setAd] = useState([0 /* bright */, 0 /* cont */, 0 /* blur */, 0 /* sepia */, 0/* pixel */])
   
   let stl = {
     transform: "scale(" + dScale + ")"
@@ -69,9 +70,46 @@ export default function Edit() {
       });
     })
   }
+
+  function bright(e) {
+    setAd([e.target.value / Math.pow(10, 2), adj[1], adj[2], adj[3], adj[4]])
+    setAdj()
+   }
+
+  function cont(e) {
+    setAd([adj[0], e.target.value / Math.pow(10, 2), adj[2], adj[3], adj[4]])
+    setAdj()
+  }
+
   function save( ) {
     saveAs(b64toBlob("data:image/jpeg;base64" + file), "out.png")
   }
+
+  function setAdj() {
+    console.log(adj)
+    if(!defImg) {
+      Jimp.read(file, (err, img) => {
+        img.brightness(adj[0])
+        img.contrast(adj[1])
+        img.getBase64(Jimp.MIME_PNG, (err, img) => {
+          if(err) throw err;
+          setFile(img)
+          setDefImg(img)
+        });
+      })
+    }
+    else {
+      Jimp.read(defImg, (err, img) => {
+        img.brightness(adj[0])
+        img.contrast(adj[1])
+        img.getBase64(Jimp.MIME_PNG, (err, img) => {
+          if(err) throw err;
+          setFile(img)
+        });
+      })
+    }
+  }
+
   return (
     <div
       className={styles.cont}
@@ -101,8 +139,8 @@ export default function Edit() {
       </div>
         <div className={styles.adjustments}>
           <h1>Adjustments</h1>
-          <Silder title="Brightness" />
-          <Silder title="Contrast" />
+          <Silder title="Brightness" onChange={bright} />
+          <Silder title="Contrast" onChange={cont} />
           <Check title="Grayscale" />
         </div>  
         <div className={styles.adjustments}>
