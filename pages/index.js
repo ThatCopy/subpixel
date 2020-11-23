@@ -31,9 +31,7 @@ export default function Home() {
   }
 
   const handleFiles = (file) => {
-    console.log(file)
     if (validateFile(file)) {
-        console.log(file)
         setErrorMessage("")
         Jimp.read(URL.createObjectURL(file), (err, img) => {
           img.getBase64(Jimp.MIME_PNG, (err, img) => {
@@ -66,7 +64,7 @@ export default function Home() {
         </>
         :
           <>
-          <img src="Frame 3.svg" alt="upload" className={styles.icon} />
+          <img alt="upload" className={styles.icon} />
           <div className={styles.text}>
             <h3>Drag and drop a photo</h3>
             <span className={styles.fo}>supported formats: png, jpg, webp</span>

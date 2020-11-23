@@ -33,3 +33,9 @@
 .con {
     margin-left: 30px;
 }
+@media (prefers-color-scheme: dark) {
+  .slider {
+    background: #ffffff;
+  }
+}
+

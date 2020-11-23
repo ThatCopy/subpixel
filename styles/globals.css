@@ -39,3 +39,17 @@ input[type="checkbox"]{
     outline: 0 none;
     box-shadow: none;
   }
+
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #ffffff;
+    background: #000000;
+  }
+  body a {
+    color: #809fff;
+  }
+  input[type="checkbox"]{
+    background-color: #ffffff;
+  }
+}

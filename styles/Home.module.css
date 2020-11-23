@@ -37,3 +37,12 @@
   font-size: small;
   color: #9D9D9D;
 }
+.icon {
+  content:url("../public/Frame\ 3.svg");
+}
+@media (prefers-color-scheme: dark) {
+  .icon {
+    content:url("../public/Frame\ 3\ black.svg");
+  }
+}
+

@@ -30,41 +30,6 @@
 .toolsBar img {
     width: 32px;
 }
-.popup {
-    position: absolute; 
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    background-color: #ffffff;
-    width: 300px;
-    height: 180px;
-    border-radius: 5px;
-}
-.icon {
-    position: absolute; 
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-}
-.pop {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.pop img {
-    margin-right: 10px;
-}
-.popup input {
-    width: 4rem;
-    height: 2rem;
-    border: 2px #E5E5E5 solid; 
-    border-radius: 3px;
-    outline: none;
-    padding: 10px;
-    -webkit-appearance: none;
-    margin: 0;
-    -moz-appearance: textfield;
-}
 
 .nums {
     display: flex;
@@ -102,3 +67,11 @@
     justify-content: center;
     margin-bottom: 20px;
 }
+
+@media (prefers-color-scheme: dark) {
+    .img {
+      background-color: #2A2A2A;
+    }
+  }
+  
+  
