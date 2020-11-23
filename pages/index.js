@@ -12,14 +12,6 @@ export default function Home() {
 
   const pD = (e) => {e.preventDefault()}
  
-  function toBase(blob) {   
-    let reader = new FileReader();
-    reader.readAsDataURL(blob); 
-    reader.onloadend = function() {
-        var base64data = reader.result;                
-        return base64data;
-    }
-  }
   const fileDrop = (e) => {
     e.preventDefault();
     const files = e.dataTransfer.files;

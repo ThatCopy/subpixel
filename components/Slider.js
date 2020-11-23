@@ -7,9 +7,9 @@ export default function Silder(props) {
         <p>{props.title}</p>
         {
           props.onChange ?
-            <input type="range" min="1" max="100" defaultValue="1" className={styles.slider} onChange={e => props.onChange(e)} />
+            <input type="range"  className={styles.slider} onChange={e => props.onChange(e)} {...props} />
           :
-            <input type="range" min="1" max="100" defaultValue="1" className={styles.slider} />
+            <input type="range"  className={styles.slider} {...props} />
         }
       </div>
     </>
