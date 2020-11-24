@@ -6,7 +6,6 @@ import Silder from "../components/Slider"
 import Check from "../components/Check"
 import { saveAs } from 'file-saver'
 import filters from "../utils/filters"
-import { bright, sepia, blur, sat, contr, gray } from "../utils/filterFunctions"
 import ApplyFilter from "../utils/AppyFilter"
 
 export default function Edit() {
@@ -44,6 +43,35 @@ export default function Edit() {
       ctx.drawImage(img, 0, 0)
     }, false)
     }, [])
+
+    function bright(e) {
+      filters.set("brightness", `(${e.target.value}%)`)
+      console.log(img)
+      ApplyFilter(canvasRef, degrees, img)
+    }
+    function blur(e) {
+      filters.set("blur", `(${e.target.value}px)`)
+      ApplyFilter(canvasRef, degrees, img)
+    }
+    function sepia(e) {
+      filters.set("sepia", `(${e.target.value}%)`)
+      ApplyFilter(canvasRef, degrees, img)
+    }
+    function sat(e) {
+      filters.set("saturate", `(${e.target.value}%)`)
+      ApplyFilter(canvasRef, degrees, img)
+    }
+    
+    function contr(e) {
+      filters.set("contrast", `(${e.target.value}%)`)
+      ApplyFilter(canvasRef, degrees, img)
+    }
+    
+    function gray(e) {
+      if (e.target.checked === true) {filters.set("grayscale", `(100%)`); ApplyFilter(canvasRef, degrees, img);}
+      else {filters.set("grayscale", `(0%)`); ApplyFilter(canvasRef, degrees, img);}
+    }
+    
 
 
 
