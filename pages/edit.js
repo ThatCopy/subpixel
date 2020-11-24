@@ -30,10 +30,11 @@ export default function Edit() {
     setDScale(dScale + s)
   }
 
-  var img = new Image()
-  img.src = file
+  var img;
 
   useEffect(() => {
+    img = new Image()
+    img.src = file
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
 
