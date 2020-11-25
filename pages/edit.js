@@ -8,15 +8,19 @@ import { saveAs } from 'file-saver'
 import filters from "../utils/filters"
 import ApplyFilter from "../utils/AppyFilter"
 
+const img = new Image();
+
+
 export default function Edit() {
   const { file, setFile } = useContext(FileContext)
   const canvasRef = useRef(null)
   const router = useRouter()
-  const [dScale, setDScale] = useState(1)
+  const [dScale, setDScale] = useState(40)
   
   let degrees = 0;
   let stl = {
-    transform: "scale(" + dScale + ")"
+    width: dScale + "%",
+    height: "auto"
   }
 
   if(!file && typeof window !== 'undefined'){
@@ -29,10 +33,8 @@ export default function Edit() {
     setDScale(dScale + s)
   }
 
-  var img;
 
   useEffect(() => {
-    img = new Image()
     img.src = file
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
@@ -71,9 +73,6 @@ export default function Edit() {
       if (e.target.checked === true) {filters.set("grayscale", `(100%)`); ApplyFilter(canvasRef, degrees, img);}
       else {filters.set("grayscale", `(0%)`); ApplyFilter(canvasRef, degrees, img);}
     }
-    
-
-
 
     function save() {
       const canvas = canvasRef.current
@@ -96,8 +95,8 @@ export default function Edit() {
         <img src="arrow-clockwise.svg" onClick={() => {degrees = degrees + 90; ApplyFilter(canvasRef, degrees, img)}}/>
         <img src="arrow-counter-clockwise.svg" onClick={() => {degrees = degrees - 90; ApplyFilter(canvasRef, degrees, img)}}/>
         <img src="crop.svg" onClick={() => alert("comming soon ;)")} />
-        <img src="magnifying-glass-plus.svg"onClick={() => zoom(0.10)}/>
-        <img src="magnifying-glass-minus.svg"onClick={() => zoom(-0.10)}/>
+        <img src="magnifying-glass-plus.svg"onClick={() => zoom(5)}/>
+        <img src="magnifying-glass-minus.svg"onClick={() => zoom(-5)}/>
         <img src="floppy-disk.svg" style={{marginLeft: "15px"}} onClick={() => save()}/>
       </div>
         <div className={styles.adjustments}>

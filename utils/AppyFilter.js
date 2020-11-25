@@ -1,6 +1,7 @@
 import filters from "./filters";
 
 module.exports = function(canvasRef, degrees, img) {
+    console.log(img)
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
     //degree check and rotate canvas
