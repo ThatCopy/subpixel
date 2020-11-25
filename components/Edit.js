@@ -1,6 +1,4 @@
-import { useContext, useState, useRef, useEffect } from "react"
-import FileContext from "../components/FileContext"
-import { useRouter } from 'next/router'
+import { useState, useRef, useEffect } from "react"
 import styles from "../styles/Edit.module.css"
 import Silder from "../components/Slider"
 import Check from "../components/Check"
@@ -8,13 +6,13 @@ import { saveAs } from 'file-saver'
 import filters from "../utils/filters"
 import ApplyFilter from "../utils/AppyFilter"
 
-const img = new Image();
 
-
-export default function Edit() {
-  const { file, setFile } = useContext(FileContext)
+export default function Edit(props) {
+  const file = props.file
+  var img = new Image()
+  img.src = file
+  
   const canvasRef = useRef(null)
-  const router = useRouter()
   const [dScale, setDScale] = useState(40)
   
   let degrees = 0;
@@ -22,20 +20,17 @@ export default function Edit() {
     width: dScale + "%",
     height: "auto"
   }
-
-  if(!file && typeof window !== 'undefined'){
-    router.push("/")
-  }
-
+  
   const pD = (e) => {e.preventDefault()}
-
+  
   function zoom(s) {
+    console.log(img)
     setDScale(dScale + s)
+    console.log(img)
   }
-
-
+  
+  
   useEffect(() => {
-    img.src = file
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
 
@@ -78,27 +73,28 @@ export default function Edit() {
       const canvas = canvasRef.current
       saveAs(canvas.toDataURL(), "out.png")
     }
-
+  
+  
   return (
     <div
-      className={styles.cont}
-      onDragOver={pD}
-      onDragEnter={pD}
-      onDragLeave={pD}
-      onDrop={pD}
+    className={styles.cont}
+    onDragOver={pD}
+    onDragEnter={pD}
+    onDragLeave={pD}
+    onDrop={pD}
     >
       <div className={styles.img}>
         <canvas ref={canvasRef} style={stl}></canvas>
       </div> 
       <div className={styles.tools}>
         <div className={styles.toolsBar}>
-        <img src="arrow-clockwise.svg" onClick={() => {degrees = degrees + 90; ApplyFilter(canvasRef, degrees, img)}}/>
-        <img src="arrow-counter-clockwise.svg" onClick={() => {degrees = degrees - 90; ApplyFilter(canvasRef, degrees, img)}}/>
-        <img src="crop.svg" onClick={() => alert("comming soon ;)")} />
-        <img src="magnifying-glass-plus.svg"onClick={() => zoom(5)}/>
-        <img src="magnifying-glass-minus.svg"onClick={() => zoom(-5)}/>
-        <img src="floppy-disk.svg" style={{marginLeft: "15px"}} onClick={() => save()}/>
-      </div>
+          <img src="arrow-clockwise.svg" onClick={() => {degrees = degrees + 90; ApplyFilter(canvasRef, degrees, img)}}/>
+          <img src="arrow-counter-clockwise.svg" onClick={() => {degrees = degrees - 90; ApplyFilter(canvasRef, degrees, img)}}/>
+          <img src="crop.svg" onClick={() => alert("comming soon ;)")} />
+          <img src="magnifying-glass-plus.svg"onClick={() => zoom(5)}/>
+          <img src="magnifying-glass-minus.svg"onClick={() => zoom(-5)}/>
+          <img src="floppy-disk.svg" style={{marginLeft: "15px"}} onClick={() => save()}/>
+        </div>
         <div className={styles.adjustments}>
           <h1>Adjustments</h1>
           <Silder title="Brightness" min="0" max="200" defaultValue="100" onChange={e => bright(e, canvasRef, degrees, img)} />

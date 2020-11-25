@@ -1,14 +1,11 @@
 import styles from '../styles/Home.module.css'
-import { useState, useContext } from "react"
-import { useRouter } from 'next/router'
-import FileContext from "../components/FileContext"
-import Jimp from 'jimp/es';
+import { useState } from "react"
+import Edit from '../components/Edit';
 
 export default function Home() {
-  const router = useRouter()
 
   const [errorMessage, setErrorMessage] = useState('');
-  const { file, setFile } = useContext(FileContext);
+  const [ready, setReady] = useState(false);
 
   const pD = (e) => {e.preventDefault()}
  
@@ -39,12 +36,12 @@ export default function Home() {
             setFile(img)
         });
         })
-        router.push("/edit")
+        setReady(true)
     } else {
         setErrorMessage('Bad file type');
     }
   }
-  return (
+  return ready && file ? <Edit file={file} /> : (
     <div
       onDragOver={pD}
       onDragEnter={pD}
