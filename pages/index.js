@@ -1,10 +1,13 @@
 import styles from '../styles/Home.module.css'
 import { useState } from "react"
 import Edit from '../components/Edit';
+import Jimp from "jimp";
+import Head from 'next/head'
 
 export default function Home() {
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [file, setFile] = useState();
   const [ready, setReady] = useState(false);
 
   const pD = (e) => {e.preventDefault()}
@@ -31,7 +34,7 @@ export default function Home() {
     if (validateFile(file)) {
         setErrorMessage("")
         Jimp.read(URL.createObjectURL(file), (err, img) => {
-          img.getBase64(Jimp.MIME_PNG, (err, img) => {
+          img.getBase64(Jimp.AUTO, (err, img) => {
             if(err) throw err;
             setFile(img)
         });
@@ -41,7 +44,14 @@ export default function Home() {
         setErrorMessage('Bad file type');
     }
   }
-  return ready && file ? <Edit file={file} /> : (
+  return ready && file ? <div>
+    <Head>
+      <title>subpixel</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <meta property="og:title" content="subpixel by copy" key="title" />
+    </Head>
+    <Edit file={file} />
+  </div> : (
     <div
       onDragOver={pD}
       onDragEnter={pD}
@@ -49,6 +59,11 @@ export default function Home() {
       onDrop={fileDrop}
       className={styles.drag}
     >
+      <Head>
+        <title>subpixel</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:title" content="subpixel by copy" key="title" />
+      </Head>
     <div className={styles.container}>
       <div className={styles.image}>
         { errorMessage ? 
