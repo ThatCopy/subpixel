@@ -1,5 +1,5 @@
 import styles from '../styles/Home.module.css'
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Edit from '../components/Edit';
 import Jimp from "jimp";
 import Head from 'next/head'
@@ -9,6 +9,7 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState('');
   const [file, setFile] = useState();
   const [ready, setReady] = useState(false);
+  const inputRef = useRef(null)
 
   const pD = (e) => {e.preventDefault()}
  
@@ -21,6 +22,20 @@ export default function Home() {
       setErrorMessage("Too many files")
     }
   }  
+
+  const inputSub = (e) => {
+    const files = e.target.files;
+    if (files.length === 1) {
+      handleFiles(files[0]);
+    } else {
+      setErrorMessage("Too many files")
+    }
+  }
+
+  const fileClick = () => {
+    let input = inputRef.current
+    input.click()
+  }
 
   const validateFile = (file) => {
     const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
@@ -57,6 +72,7 @@ export default function Home() {
       onDragEnter={pD}
       onDragLeave={pD}
       onDrop={fileDrop}
+      onClick={fileClick}
       className={styles.drag}
     >
       <Head>
@@ -64,6 +80,7 @@ export default function Home() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta property="og:title" content="subpixel by copy" key="title" />
       </Head>
+    <input ref={inputRef} onChange={e => inputSub(e)} type="file" style={{"position": "fixed", "top": "-100em"}} />
     <div className={styles.container}>
       <div className={styles.image}>
         { errorMessage ? 
