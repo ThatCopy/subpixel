@@ -24,9 +24,7 @@ export default function Edit(props) {
   const pD = (e) => {e.preventDefault()}
   
   function zoom(s) {
-    console.log(img)
     setDScale(dScale + s)
-    console.log(img)
   }
   
   
@@ -43,7 +41,6 @@ export default function Edit(props) {
 
     function bright(e) {
       filters.set("brightness", `(${e.target.value}%)`)
-      console.log(img)
       ApplyFilter(canvasRef, degrees, img)
     }
     function blur(e) {

@@ -75,3 +75,25 @@
   }
   
   
+
+@media only screen and (max-width: 600px) {
+  .cont {
+    flex-direction: column;
+  }
+  .img {
+    min-height: 400px;
+    width: 100%;
+  }
+  .tools {
+    width: 100%;
+    min-width: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+    }
+}
+@media only screen and (max-height: 520px) {
+  .tools {
+      overflow: scroll;
+      overflow-x: hidden;
+    }
+}  
