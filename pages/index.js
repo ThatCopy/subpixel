@@ -80,7 +80,7 @@ export default function Home() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta property="og:title" content="subpixel by copy" key="title" />
       </Head>
-    <input ref={inputRef} onChange={e => inputSub(e)} type="file" style={{"position": "fixed", "top": "-100em"}} />
+    <input ref={inputRef} onChange={e => inputSub(e)} type="file" style={{"position": "fixed", "visibility": "hidden"}} />
     <div className={styles.container}>
       <div className={styles.image}>
         { errorMessage ? 

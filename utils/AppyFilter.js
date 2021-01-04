@@ -1,12 +1,11 @@
 import filters from "./filters";
 
 module.exports = function(canvasRef, degrees, img) {
-    console.log(img)
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
     //degree check and rotate canvas
-    if(degrees == 360 || degrees == -360) degrees = 0
-    if(degrees == 90 || degrees == 270 || degrees == -90 || degrees == -270) {
+    if(degrees === 360 || degrees === -360) degrees = 0
+    if(degrees === 90 || degrees === 270 || degrees === -90 || degrees === -270) {
       canvas.width = img.height
       canvas.height = img.width
     } else {

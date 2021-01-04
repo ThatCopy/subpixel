@@ -5,15 +5,17 @@ import Check from "../components/Check"
 import { saveAs } from 'file-saver'
 import filters from "../utils/filters"
 import ApplyFilter from "../utils/AppyFilter"
+import Crop from "./Crop";
 
 
 export default function Edit(props) {
-  const file = props.file
-  var img = new Image()
+  const [file, setFile] = useState(props.file)
+  const img = new Image()
   img.src = file
   
   const canvasRef = useRef(null)
   const [dScale, setDScale] = useState(40)
+  const [crop, setCrop] = useState(false)
   
   let degrees = 0;
   let stl = {
@@ -26,9 +28,10 @@ export default function Edit(props) {
   function zoom(s) {
     setDScale(dScale + s)
   }
-  
+
   
   useEffect(() => {
+    console.log("use effect here uwu *AAA*")
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
 
@@ -39,6 +42,16 @@ export default function Edit(props) {
     }, false)
     }, [])
 
+
+    if(!crop) {
+      img.addEventListener('load', function() {
+        const canvas = canvasRef.current
+        const ctx = canvas.getContext('2d')
+        ctx.canvas.width = img.width
+        ctx.canvas.height = img.height
+        ctx.drawImage(img, 0, 0)
+      }, false)
+    }
     function bright(e) {
       filters.set("brightness", `(${e.target.value}%)`)
       ApplyFilter(canvasRef, degrees, img)
@@ -62,7 +75,10 @@ export default function Edit(props) {
     }
     
     function gray(e) {
-      if (e.target.checked === true) {filters.set("grayscale", `(100%)`); ApplyFilter(canvasRef, degrees, img);}
+      if (e.target.checked === true) {
+        filters.set("grayscale", `(100%)`)
+        ApplyFilter(canvasRef, degrees, img)
+      }
       else {filters.set("grayscale", `(0%)`); ApplyFilter(canvasRef, degrees, img);}
     }
 
@@ -72,7 +88,7 @@ export default function Edit(props) {
     }
   
   
-  return (
+  return !crop ? (
     <div
     className={styles.cont}
     onDragOver={pD}
@@ -81,16 +97,24 @@ export default function Edit(props) {
     onDrop={pD}
     >
       <div className={styles.img}>
-        <canvas ref={canvasRef} style={stl}></canvas>
+        <canvas ref={canvasRef} style={stl}/>
       </div> 
       <div className={styles.tools}>
         <div className={styles.toolsBar}>
-          <img src="arrow-clockwise.svg" onClick={() => {degrees = degrees + 90; ApplyFilter(canvasRef, degrees, img)}}/>
-          <img src="arrow-counter-clockwise.svg" onClick={() => {degrees = degrees - 90; ApplyFilter(canvasRef, degrees, img)}}/>
-          <img src="crop.svg" onClick={() => alert("comming soon ;)")} />
-          <img src="magnifying-glass-plus.svg"onClick={() => zoom(5)}/>
-          <img src="magnifying-glass-minus.svg"onClick={() => zoom(-5)}/>
-          <img src="floppy-disk.svg" style={{marginLeft: "15px"}} onClick={() => save()}/>
+          <img
+            alt="arrow-clockwise"
+            src="arrow-clockwise.svg"
+            onClick={() => {degrees = degrees + 90; ApplyFilter(canvasRef, degrees, img)}}
+          />
+          <img
+            alt="arrow-counter-clockwise"
+            src="arrow-counter-clockwise.svg"
+            onClick={() => {degrees = degrees - 90; ApplyFilter(canvasRef, degrees, img)}}
+          />
+          <img alt="crop" src="crop.svg" onClick={() => setCrop(true)} />
+          <img alt="magnifying-glass-plus" src="magnifying-glass-plus.svg"onClick={() => zoom(5)}/>
+          <img alt="magnifying-glass-minus" src="magnifying-glass-minus.svg"onClick={() => zoom(-5)}/>
+          <img alt="save" src="floppy-disk.svg" style={{marginLeft: "15px"}} onClick={() => save()}/>
         </div>
         <div className={styles.adjustments}>
           <h1>Adjustments</h1>
@@ -109,5 +133,14 @@ export default function Edit(props) {
         </div>
       </div>
     </div>
-  )
+  ) : <Crop
+    file={file}
+    setFile={setFile}
+    setCropped={setCrop}
+    img={img}
+    imgSrc={canvasRef.current}
+    editCanvasRef={canvasRef}
+    degrees={degrees}
+    test={bright}
+  />
 }
